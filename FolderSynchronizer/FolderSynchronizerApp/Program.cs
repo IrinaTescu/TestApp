@@ -12,10 +12,26 @@
 
             foreach(var sourceFile in sourceFiles)
             {
-                File.Copy(sourceFile,Path.Combine(replicaFolderPath,Path.GetFileName(sourceFile)));
+                var additionalPath=Path.GetDirectoryName(sourceFile).Substring(sourceFolderPath.Length);
+                if(additionalPath.StartsWith(Path.DirectorySeparatorChar))
+                {
+
+                   additionalPath=additionalPath.Substring(1);
+                }
+                var destinationPath = Path.Combine(replicaFolderPath,additionalPath, Path.GetFileName(sourceFile));
+                if (!replicaFiles.Contains(destinationPath))
+                {
+                    if(!Directory.Exists(Path.GetDirectoryName(destinationPath)))
+                    {
+
+                       Directory.CreateDirectory(Path.GetDirectoryName(destinationPath));
+                    }
+                    File.Copy(sourceFile, destinationPath);
+                }
             }
             
-
+            
+            
 
         }
     }
