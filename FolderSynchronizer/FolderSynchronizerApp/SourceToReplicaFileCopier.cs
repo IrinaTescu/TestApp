@@ -20,6 +20,7 @@ namespace FolderSynchronizerApp
 
         public void Execute()
         {
+            
             var sourceFiles = Directory.GetFiles(_sourceFolderPath, "*", SearchOption.AllDirectories);
             var replicaFiles = Directory.GetFiles(_replicaFolderPath, "*", SearchOption.AllDirectories);
 

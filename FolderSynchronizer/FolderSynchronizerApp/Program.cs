@@ -8,7 +8,9 @@
             string sourceFolderPath = @"C:\Playground\Source";
             string replicaFolderPath = @"C:\Playground\Replica";
             Logger.Info("Copy files from {Source} to {Replica}",sourceFolderPath,replicaFolderPath);
+            var sourceToReplicaFolder=new SourceToReplicaFolderCopier(sourceFolderPath,replicaFolderPath);
             var sourceToReplicaFileCopier = new SourceToReplicaFileCopier(sourceFolderPath, replicaFolderPath);
+            sourceToReplicaFolder.Execute();
             sourceToReplicaFileCopier.Execute();
 
         }
