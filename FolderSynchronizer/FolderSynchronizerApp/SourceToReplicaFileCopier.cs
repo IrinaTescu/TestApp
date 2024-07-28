@@ -25,23 +25,35 @@ namespace FolderSynchronizerApp
 
             foreach (var sourceFile in sourceFiles)
             {
-                var additionalPath = Path.GetDirectoryName(sourceFile).Substring(_sourceFolderPath.Length);
-                if (additionalPath.StartsWith(Path.DirectorySeparatorChar))
-                {
-                    additionalPath = additionalPath.Substring(1);
-                }
+                string additionalPath = GetAdditionalPath(sourceFile);
                 var destinationPath = Path.Combine(_replicaFolderPath, additionalPath, Path.GetFileName(sourceFile));
                 if (!replicaFiles.Contains(destinationPath))
                 {
-                    if (!Directory.Exists(Path.GetDirectoryName(destinationPath)))
-                    {
-                        Logger.Info("Create Directory {DestinationPath}", destinationPath);
-                        Directory.CreateDirectory(Path.GetDirectoryName(destinationPath));
-                    }
+                    CreateDirectoryIfNotExist(destinationPath);
                     Logger.Info("Copy {SourceFile} to {DestinationPath}", sourceFile, destinationPath);
                     File.Copy(sourceFile, destinationPath);
                 }
             }
+        }
+
+        private void CreateDirectoryIfNotExist(string destinationPath)
+        {
+            if (!Directory.Exists(Path.GetDirectoryName(destinationPath)))
+            {
+                Logger.Info("Create Directory {DestinationPath}", destinationPath);
+                Directory.CreateDirectory(Path.GetDirectoryName(destinationPath));
+            }
+        }
+
+        private string GetAdditionalPath(string sourceFile)
+        {
+            var additionalPath = Path.GetDirectoryName(sourceFile).Substring(_sourceFolderPath.Length);
+            if (additionalPath.StartsWith(Path.DirectorySeparatorChar))
+            {
+                additionalPath = additionalPath.Substring(1);
+            }
+
+            return additionalPath;
         }
     }
 }
