@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.10.35122.118
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FolderSynchronizerApp", "FolderSynchronizerApp.csproj", "{BA251D7B-81B8-4D7D-B6BE-B7C38C955A0B}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{BA251D7B-81B8-4D7D-B6BE-B7C38C955A0B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BA251D7B-81B8-4D7D-B6BE-B7C38C955A0B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BA251D7B-81B8-4D7D-B6BE-B7C38C955A0B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BA251D7B-81B8-4D7D-B6BE-B7C38C955A0B}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {B8CA8147-9815-45A0-84C8-AB9BE678D925}
+	EndGlobalSection
+EndGlobal
