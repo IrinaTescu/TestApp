@@ -8,6 +8,8 @@ namespace FolderSynchronizerApp
 {
     internal class SourceToReplicaFileCopier
     {
+
+        private static readonly NLog.Logger Logger = NLog.LogManager.GetCurrentClassLogger();
         private readonly string _sourceFolderPath;
         private readonly string _replicaFolderPath;
         public SourceToReplicaFileCopier(string sourceFolderPath, string replicaFolderPath)
@@ -26,7 +28,6 @@ namespace FolderSynchronizerApp
                 var additionalPath = Path.GetDirectoryName(sourceFile).Substring(_sourceFolderPath.Length);
                 if (additionalPath.StartsWith(Path.DirectorySeparatorChar))
                 {
-
                     additionalPath = additionalPath.Substring(1);
                 }
                 var destinationPath = Path.Combine(_replicaFolderPath, additionalPath, Path.GetFileName(sourceFile));
@@ -34,9 +35,10 @@ namespace FolderSynchronizerApp
                 {
                     if (!Directory.Exists(Path.GetDirectoryName(destinationPath)))
                     {
-
+                        Logger.Info("Create Directory {DestinationPath}", destinationPath);
                         Directory.CreateDirectory(Path.GetDirectoryName(destinationPath));
                     }
+                    Logger.Info("Copy {SourceFile} to {DestinationPath}", sourceFile, destinationPath);
                     File.Copy(sourceFile, destinationPath);
                 }
             }
