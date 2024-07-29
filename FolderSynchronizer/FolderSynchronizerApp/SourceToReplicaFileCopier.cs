@@ -56,5 +56,6 @@ namespace FolderSynchronizerApp
 
             return additionalPath;
         }
+
     }
 }

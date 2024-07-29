@@ -13,6 +13,13 @@
             sourceToReplicaFolder.Execute();
             sourceToReplicaFileCopier.Execute();
 
+            Logger.Info("Delete folder from {Relica}", replicaFolderPath);
+            var sourceToReplicaFileDeleter = new SourceToReplicaFileDeleter(sourceFolderPath, replicaFolderPath);
+            var sourceToReplicaFolderDeleter = new SourceToReplicaFolderDeleter(sourceFolderPath, replicaFolderPath);
+            sourceToReplicaFileDeleter.Execute();
+            sourceToReplicaFolderDeleter.Execute();
+
+
         }
 
         
