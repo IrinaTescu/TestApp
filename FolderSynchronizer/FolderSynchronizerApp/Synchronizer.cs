@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace FolderSynchronizerApp
 {
-    internal class Synchronizer
+    public class Synchronizer
     {
         private static readonly NLog.Logger Logger = NLog.LogManager.GetCurrentClassLogger();
         private readonly string _sourceFolderPath;

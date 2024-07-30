@@ -34,7 +34,7 @@
                 return;
             }
 
-            using var timer = new PeriodicTimer(TimeSpan.FromSeconds(50));
+            using var timer = new PeriodicTimer(TimeSpan.FromMinutes(syncInterval));
 
 
             while (await timer.WaitForNextTickAsync())
