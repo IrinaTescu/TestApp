@@ -9,7 +9,7 @@
             string replicaFolderPath = @"C:\Playground\Replica";
             Logger.Info("Copy files from {Source} to {Replica}",sourceFolderPath,replicaFolderPath);
             var sourceToReplicaFolder=new SourceToReplicaFolderCopier(sourceFolderPath,replicaFolderPath);
-            var sourceToReplicaFileCopier = new SourceToReplicaFileCopier(sourceFolderPath, replicaFolderPath);
+            var sourceToReplicaFileCopier = new SourceToReplicaFileCopier(sourceFolderPath, replicaFolderPath, new MD5Calculator());
             sourceToReplicaFolder.Execute();
             sourceToReplicaFileCopier.Execute();
 

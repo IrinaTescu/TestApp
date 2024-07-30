@@ -12,10 +12,12 @@ namespace FolderSynchronizerApp
         private static readonly NLog.Logger Logger = NLog.LogManager.GetCurrentClassLogger();
         private readonly string _sourceFolderPath;
         private readonly string _replicaFolderPath;
-        public SourceToReplicaFileCopier(string sourceFolderPath, string replicaFolderPath)
+        private readonly IMD5Calculator _md5Calculator;
+        public SourceToReplicaFileCopier(string sourceFolderPath, string replicaFolderPath, IMD5Calculator md5calculator)
         {
             _sourceFolderPath = sourceFolderPath;
             _replicaFolderPath = replicaFolderPath;
+            _md5Calculator = md5calculator;
         }
 
         public void Execute()
@@ -33,6 +35,16 @@ namespace FolderSynchronizerApp
                     CreateDirectoryIfNotExist(destinationPath);
                     Logger.Info("Copy {SourceFile} to {DestinationPath}", sourceFile, destinationPath);
                     File.Copy(sourceFile, destinationPath);
+                }
+                else
+                {
+                    var sourceMD5=_md5Calculator.Calculate(sourceFile);
+                    var destinationMD5=_md5Calculator.Calculate(destinationPath);
+                    if(sourceMD5!=destinationMD5)
+                    {
+                        Logger.Info("Update {SourceFile} to {DestinationPath}", sourceFile, destinationPath);
+                        File.Copy(sourceFile, destinationPath,true);
+                    }
                 }
             }
         }
