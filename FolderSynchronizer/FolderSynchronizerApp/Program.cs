@@ -3,7 +3,7 @@
     internal class Program
     {
         private static readonly NLog.Logger Logger = NLog.LogManager.GetCurrentClassLogger();
-        static void Main(string[] args)
+        static async Task Main(string[] args)
         {
             if (args.Length != 3)
             {
@@ -23,7 +23,7 @@
                 Logger.Error("Replica folder does not exist");
                 return;
             }
-            if(int.TryParse(args[2], out int syncInterval))
+            if(!int.TryParse(args[2], out int syncInterval))
             {
                 Logger.Error("Sync interval must be a number>0");
                 return;
@@ -34,18 +34,17 @@
                 return;
             }
 
+            using var timer = new PeriodicTimer(TimeSpan.FromMinutes(syncInterval));
 
-            Logger.Info("Copy files from {Source} to {Replica}", sourceFolderPath, replicaFolderPath);
-            var sourceToReplicaFolder = new SourceToReplicaFolderCopier(sourceFolderPath, replicaFolderPath);
-            var sourceToReplicaFileCopier = new SourceToReplicaFileCopier(sourceFolderPath, replicaFolderPath, new MD5Calculator());
-            sourceToReplicaFolder.Execute();
-            sourceToReplicaFileCopier.Execute();
 
-            Logger.Info("Delete folder from {Relica}", replicaFolderPath);
-            var sourceToReplicaFileDeleter = new SourceToReplicaFileDeleter(sourceFolderPath, replicaFolderPath);
-            var sourceToReplicaFolderDeleter = new SourceToReplicaFolderDeleter(sourceFolderPath, replicaFolderPath);
-            sourceToReplicaFileDeleter.Execute();
-            sourceToReplicaFolderDeleter.Execute();
+            while (await timer.WaitForNextTickAsync())
+            {
+                var syncronize = new Synchronizer(sourceFolderPath, replicaFolderPath);
+                syncronize.Synchronize();
+
+            }
+
+
 
 
         }
