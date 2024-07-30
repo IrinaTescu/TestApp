@@ -33,8 +33,8 @@ namespace FolderSynchronizerApp
                 if (!replicaFiles.Contains(destinationPath))
                 {
                     CreateDirectoryIfNotExist(destinationPath);
-                    Logger.Info("Copy {SourceFile} to {DestinationPath}", sourceFile, destinationPath);
                     File.Copy(sourceFile, destinationPath);
+                    Logger.Info("Copy {SourceFile} to {DestinationPath}", sourceFile, destinationPath);
                 }
                 else
                 {
@@ -42,8 +42,9 @@ namespace FolderSynchronizerApp
                     var destinationMD5=_md5Calculator.Calculate(destinationPath);
                     if(sourceMD5!=destinationMD5)
                     {
-                        Logger.Info("Update {SourceFile} to {DestinationPath}", sourceFile, destinationPath);
+                        
                         File.Copy(sourceFile, destinationPath,true);
+                        Logger.Info("Update {SourceFile} to {DestinationPath}", sourceFile, destinationPath);
                     }
                 }
             }
@@ -52,9 +53,9 @@ namespace FolderSynchronizerApp
         private void CreateDirectoryIfNotExist(string destinationPath)
         {
             if (!Directory.Exists(Path.GetDirectoryName(destinationPath)))
-            {
-                Logger.Info("Create Directory {DestinationPath}", destinationPath);
+            {          
                 Directory.CreateDirectory(Path.GetDirectoryName(destinationPath));
+                Logger.Info("Create Directory {DestinationPath}", destinationPath);
             }
         }
 

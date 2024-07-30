@@ -29,16 +29,14 @@ namespace FolderSynchronizerApp
                 if (!Directory.Exists(sourcePath))
                 {
                     DeleteDirectory(replicaDirectoryEntry);
+                    logger.Info("Delete Folder {replicaDirectoryEntry}", replicaDirectoryEntry);
                 }
             }
         }
 
         private void DeleteDirectory(string replicaDirectoryEntry)
         {
-
-            logger.Info("Delete Folder {replicaDirectoryEntry}", replicaDirectoryEntry);
             Directory.Delete(replicaDirectoryEntry, true);
-
         }
 
         private string GetAdditionalPath(string replicaDirectoryEntry)
@@ -46,7 +44,6 @@ namespace FolderSynchronizerApp
             string additionalPath = replicaDirectoryEntry.Substring(_replicaFolderPath.Length);
             if (additionalPath.StartsWith(Path.DirectorySeparatorChar))
             {
-
                 additionalPath = additionalPath.Substring(1);
             }
             return additionalPath;

@@ -30,13 +30,13 @@ namespace FolderSynchronizerApp
                 if (!File.Exists(sourceFile))
                 {
                     DeleteFile(replicaFile);
+                    logger.Info("Delete file {replicaFile}", replicaFile);
                 }
             }
         }
 
         private void DeleteFile(string replicaFile)
         {
-            logger.Info("Delete file {replicaFile}", replicaFile);
             File.Delete(replicaFile);
         }
 

@@ -18,17 +18,19 @@ namespace FolderSynchronizerApp
         }
         public void Synchronize()
         {
-            Logger.Info("Copy files from {Source} to {Replica}", _sourceFolderPath, _replicaFolderPath);
+            Logger.Debug("Start copy files from {Source} to {Replica}", _sourceFolderPath, _replicaFolderPath);
             var sourceToReplicaFolder = new SourceToReplicaFolderCopier(_sourceFolderPath, _replicaFolderPath);
             var sourceToReplicaFileCopier = new SourceToReplicaFileCopier(_sourceFolderPath, _replicaFolderPath, new MD5Calculator());
             sourceToReplicaFolder.Execute();
             sourceToReplicaFileCopier.Execute();
+            Logger.Debug("End copy files from {Source} to {Replica}", _sourceFolderPath, _replicaFolderPath);
 
-            Logger.Info("Delete folder from {Relica}", _replicaFolderPath);
+            Logger.Debug("Start delete folder from {Relica}", _replicaFolderPath);
             var sourceToReplicaFileDeleter = new SourceToReplicaFileDeleter(_sourceFolderPath, _replicaFolderPath);
             var sourceToReplicaFolderDeleter = new SourceToReplicaFolderDeleter(_sourceFolderPath, _replicaFolderPath);
             sourceToReplicaFileDeleter.Execute();
             sourceToReplicaFolderDeleter.Execute();
+            Logger.Debug("End delete folder from {Relica}", _replicaFolderPath);
         }
     }
 }

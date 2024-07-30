@@ -28,6 +28,7 @@ namespace FolderSynchronizerApp
                 if (!replicaDirectory.Contains(destinationPath))
                 {
                     CreateDirectoryIfNotExist(destinationPath);
+                    Logger.Info("Create Directory {DestinationPath}", destinationPath);
                 }
             }
 
@@ -38,7 +39,6 @@ namespace FolderSynchronizerApp
         {
             if (!Directory.Exists(destinationPath))
             {
-                Logger.Info("Create Directory {DestinationPath}", destinationPath);
                 Directory.CreateDirectory(destinationPath);
             }
         }
