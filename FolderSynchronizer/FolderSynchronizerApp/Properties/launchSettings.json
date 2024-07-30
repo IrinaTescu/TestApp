@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "FolderSynchronizerApp": {
+      "commandName": "Project",
+      "commandLineArgs": "C:\\Playground\\Source C:\\Playground\\Replica 2"
+    }
+  }
+}
